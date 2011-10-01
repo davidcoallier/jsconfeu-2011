@@ -38,6 +38,10 @@
   font-size: 12px;
   visibility: hidden;
 }
+
+#pirate-room {
+
+}
 .connected #connecting {
   display: none;
 }

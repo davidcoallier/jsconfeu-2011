@@ -1,5 +1,7 @@
 var socket = io.connect();
 
+var talkPirateLike = false;
+
 socket.on('connect', function () {
     $('#chat').addClass('connected');
 });
@@ -30,6 +32,19 @@ socket.on('error', function (e) {
 });
 
 function message(from, msg) {
+    // ... let's make an ajax call to our php stuff then.
+    if (talkPirateLike === true) {
+        msg = $.getJSON('/translate/pirate', {word: msg}, function(data) {
+            if (data.success) { 
+                $('#lines').append($('<p>').append($('<b>').text(from), data.success));
+            } else {
+                $('#lines').append($('<p>').append($('<b>').text(from), 'Pirate failed! Arg!!: ' + msg));
+            }
+        });
+
+        return;
+    }
+
     $('#lines').append($('<p>').append($('<b>').text(from), msg));
 }
 
@@ -42,6 +57,7 @@ $(function () {
                 return $('#chat').addClass('nickname-set');
             }
             $('#nickname-err').css('visibility', 'visible');
+            $('#pirate-room').css('visibility', 'visible');
         });
         return false;
     });
@@ -57,4 +73,16 @@ $(function () {
     function clear() {
         $('#message').val('').focus();
     };
+});
+
+
+$('#pirate-room').live('click', function() {
+    if (talkPirateLike === true) {
+        $('#pirate-room').html("'Tis be pirated!");
+        talkPirateLike = false;
+        return;
+    }
+
+    $('#pirate-room').html("Human please");
+    talkPirateLike = true;
 });
