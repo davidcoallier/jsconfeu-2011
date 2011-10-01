@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
+<html>
+<head> 
+  <script src="http://code.jquery.com/jquery-1.6.1.min.js" type="text/javascript"></script>
+  <script src="/socket.io/socket.io.js" type="text/javascript"></script>
+  <script type="text/javascript" src="/js/client.js"></script>
+  <link rel="stylesheet" href="/css/style.css" type="text/css"/>
+  <title>JSConfEU 2011 - &pirateface; - Room Chat.</title>
+</head>
+
+<body>
+  <div id="chat">
+    <div id="nickname">
+      <form id="set-nickname" class="wrap" name="set-nickname">
+        <p>Please type in your nickname and press enter.</p><input id="nick">
+
+        <p id="nickname-err">Nickname already in use</p>
+      </form>
+    </div>
+
+    <div class="wrap" id="connecting">
+      Connecting to socket.io server
+    </div>
+
+    <div id="messages">
+      <div id="nicknames"></div>
+
+      <div id="lines"></div>
+    </div>
+
+    <form id="send-message" name="send-message">
+      <input id="message"><button>Send</button>
+    </form>
+  </div>
+</body>
+</html>
+
