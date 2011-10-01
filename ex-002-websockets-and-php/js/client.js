@@ -11,9 +11,16 @@ socket.on('announcement', function (msg) {
 });
 
 socket.on('nicknames', function (nicknames) {
-    $('#nicknames').empty().append($('<span>Online: <\/span>'));
+    //$('#nicknames').empty().prepend($('<span>Online: <\/span>'));
+    $('#pirate-room').empty().before($('<span>Online: <\/span>'));
     for (var i in nicknames) {
-        $('#nicknames').append($('<b>').text(nicknames[i]));
+        $('#pirate-room').before($('<b>').text(nicknames[i]));
+        //$('#nicknames').prepend($('<b>').text(nicknames[i]));
+    }
+    if (talkPirateLike === true) {
+        $('#pirate-room').html('Human please');
+    } else {
+        $('#pirate-room').html("'Tis be pirated!");
     }
 });
 
@@ -35,7 +42,7 @@ function message(from, msg) {
     // ... let's make an ajax call to our php stuff then.
     if (talkPirateLike === true) {
         msg = $.getJSON('/translate/pirate', {word: msg}, function(data) {
-            if (data.success) { 
+            if (data.success && data.success != '') { 
                 $('#lines').append($('<p>').append($('<b>').text(from), data.success));
             } else {
                 $('#lines').append($('<p>').append($('<b>').text(from), 'Pirate failed! Arg!!: ' + msg));
@@ -58,6 +65,8 @@ $(function () {
             }
             $('#nickname-err').css('visibility', 'visible');
             $('#pirate-room').css('visibility', 'visible');
+            $('#pirate-room').css('display', 'block');
+
         });
         return false;
     });
@@ -86,3 +95,5 @@ $('#pirate-room').live('click', function() {
     $('#pirate-room').html("Human please");
     talkPirateLike = true;
 });
+
+$(document).ready(function() { $('#nick').focus(); });
