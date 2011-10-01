@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * No comments it's only to showoff our shiny namespaces.
+ */
 namespace jsconf;
 
 class Apc {
